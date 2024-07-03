@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Music</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        .upload-container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="upload-container">
+    <h2>Upload Music</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="audio/*" required>
+        <br><br>
+        <button type="submit">Upload</button>
+    </form>
+</div>
+
+</body>
+</html>
