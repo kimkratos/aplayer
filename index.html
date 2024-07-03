@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>APlayer</title>
+    <link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css">
+    <style>
+        /* 居中容器样式 */
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0; /* 可选的背景色 */
+        }
+        #player1 {
+            width: 300px; /* 设置播放器的宽度 */
+        }
+    </style>
+</head>
+<body>
+
+<div id="player1" class="aplayer"></div>
+
+<script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script>
+<script>
+    const ap = new APlayer({
+        container: document.getElementById('player1'),
+        audio: [{
+            name: 'Song Name',
+            artist: 'Artist Name',
+            url: '/music/ajar_Of_Love.m4a'
+        }]
+    });
+</script>
+
+</body>
+</html>
