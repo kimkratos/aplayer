@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <title>APlayer</title>
@@ -12,7 +12,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f0f0f0; /* 可选的背景色 */
+            background-image: url('https://images.unsplash.com/photo-1436891620584-47fd0e565afb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         #player1 {
             width: 800px; /* 设置播放器的宽度 */
@@ -31,7 +34,7 @@
         autoplay: false,
         theme: '#FADFA3',
         loop: 'all',  // 循环播放
-        order: 'list',  // 随机播放
+        order: 'list',  // 列表顺序播放
         preload: 'auto',
         volume: 0.7,
         mutex: true,
