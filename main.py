@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, url_for, render_template, send_from_directory
+from flask import Flask, request, redirect, url_for, render_template_string, send_from_directory
 import os
 
 app = Flask(__name__)
@@ -7,7 +7,8 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    with open('index.html') as f:
+        return render_template_string(f.read())
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -21,7 +22,8 @@ def upload_file():
             filename = file.filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return 'File uploaded successfully'
-    return render_template('upload.html')
+    with open('upload.html') as f:
+        return render_template_string(f.read())
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
