@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        /* 居中容器样式 */
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #startButton {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #FADFA3;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        #startButton:hover {
+            background-color: #e8c593;
+        }
+        @media (max-width: 600px) {
+            #startButton {
+                padding: 15px 30px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<button id="startButton" onclick="startMusic()">Let's Music</button>
+
+<script>
+    function startMusic() {
+        window.location.href = 'index.html';
+    }
+</script>
+
+</body>
+</html>
