@@ -10,8 +10,8 @@ logging.basicConfig(filename='access.log', level=logging.INFO)
 
 @app.route('/')
 def home():
-    ip = request.remote_addr  # 获取访问者的IP地址
-    logging.info(f'Access from {ip}')  # 记录IP到日志文件
+    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    logging.info(f'Access from {ip}')
     with open('home.html') as f:
         return render_template_string(f.read())
 
