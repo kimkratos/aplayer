@@ -12,7 +12,6 @@ logging.basicConfig(filename='access.log', level=logging.INFO)
 def home():
     ip = request.remote_addr  # 获取访问者的IP地址
     logging.info(f'Access from {ip}')  # 记录IP到日志文件
-    return 'Hello, World!'  # 返回网页内容
     with open('home.html') as f:
         return render_template_string(f.read())
 
