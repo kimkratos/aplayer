@@ -6,7 +6,7 @@ UPLOAD_FOLDER = '/root/music/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
-def index():
+def home():
     with open('home.html') as f:
         return render_template_string(f.read())
 
