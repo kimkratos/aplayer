@@ -10,6 +10,11 @@ def index():
     with open('home.html') as f:
         return render_template_string(f.read())
 
+@app.route('/index.html')
+def index():
+    with open('index.html') as f:
+        return render_template_string(f.read())
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
