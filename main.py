@@ -2,7 +2,7 @@ from flask import Flask, request, redirect, url_for, render_template_string, sen
 import os
 import logging
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/2048', static_folder='2048', template_folder='2048')
 UPLOAD_FOLDER = '/root/music/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # 设置日志
