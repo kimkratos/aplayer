@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>2048</h1>
+        <div id="game-container"></div>
+    </div>
+    <script src="{{ url_for('static', filename='js/bind_polyfill.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/classlist_polyfill.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/animframe_polyfill.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/keyboard_input_manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/html_actuator.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/grid.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tile.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/local_storage_manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/game_manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/application.js') }}"></script>
+</body>
+</html>
