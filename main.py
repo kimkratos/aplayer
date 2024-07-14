@@ -13,7 +13,7 @@ logging.basicConfig(filename='access.log', level=logging.INFO)
 def game():
     ip = request.headers.get('X-Forwarded-For', request.remote_addr)
     logging.info(f'Access from {ip}')
-    with open('2048.html') as f:
+    with open('2048/index.html') as f:
         return render_template_string(f.read())
         
 @app.route('/')
