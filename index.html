@@ -142,12 +142,8 @@
         const ctx = canvas.getContext('2d');
         const audio = ap.audio;
 
-        function resizeCanvas() {
-            canvas.width = canvas.clientWidth;
-            canvas.height = canvas.clientHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
 
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const audioSrc = audioContext.createMediaElementSource(audio);
@@ -160,14 +156,17 @@
         const bufferLength = analyser.frequencyBinCount;
         const dataArray = new Uint8Array(bufferLength);
 
+        const WIDTH = canvas.width;
+        const HEIGHT = canvas.height;
+        const centerX = WIDTH / 2;
+        const centerY = HEIGHT / 2;
+        const radius = 100;
+
         function draw() {
             requestAnimationFrame(draw);
             analyser.getByteFrequencyData(dataArray);
 
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            const radius = Math.min(centerX, centerY) - 20;
+            ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
             // 绘制透明的圆形外圈
             ctx.beginPath();
@@ -179,7 +178,7 @@
             // 绘制频谱条
             for (let i = 0; i < bufferLength; i++) {
                 const angle = (i / bufferLength) * 2 * Math.PI;
-                const barHeight = (dataArray[i] / 256) * radius;  // 调整频谱条长度
+                const barHeight = dataArray[i] / 2;
                 const x = centerX + Math.cos(angle) * (radius + barHeight);
                 const y = centerY + Math.sin(angle) * (radius + barHeight);
 
