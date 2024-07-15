@@ -2,25 +2,26 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vi</title>
     <link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css">
     <style>
         body, html {
             height: 100%;
+            width: 100%;
             margin: 0;
+            padding: 0;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
             background: #000;
             color: #fff;
             font-family: Arial, sans-serif;
-            overflow: hidden;
         }
         #player1 {
-            width: 600px;
-            max-width: 100%;
-            margin: 20px 0 40px;
+            width: 800px;
+            color: #333;
         }
         .animation-container {
             position: relative;
@@ -33,6 +34,7 @@
             overflow: hidden;
             margin-top: 20px;
             z-index: 10;
+            transform-origin: center center;
         }
         canvas {
             position: absolute;
@@ -47,6 +49,18 @@
         #canvas {
             z-index: 2;
         }
+        /* 媒体查询，适应手机端 */
+        @media (max-width: 600px) {
+            #player1 {
+                width: 95%;
+                max-width: none;
+                color: #333;
+            }
+            .animation-container {
+                width: 300px;
+                height: 300px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -59,10 +73,23 @@
 
 <script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script>
 <script>
+    function checkMediaQuery() {
+        const mediaQuery = window.matchMedia('(max-width: 600px)');
+        if (mediaQuery.matches) {
+            console.log('@media (max-width: 600px) is active');
+        } else {
+            console.log('@media (max-width: 600px) is not active');
+        }
+        console.log(`Current width: ${window.innerWidth}px`);
+    }
+
+    window.addEventListener('resize', checkMediaQuery);
+    document.addEventListener('DOMContentLoaded', checkMediaQuery);
+
     document.addEventListener('DOMContentLoaded', () => {
         const ap = new APlayer({
             container: document.getElementById('player1'),
-            fixed: false,
+            fixed: true,
             autoplay: true,
             theme: '#FADFA3',
             loop: 'all',
@@ -71,7 +98,7 @@
             volume: 0.7,
             mutex: true,
             listFolded: false,
-            listMaxHeight: 200,
+            listMaxHeight: 200, // 调整播放列表的最大高度
             lrcType: 3,
             audio: [
                 {
@@ -130,8 +157,13 @@
         const ctx = canvas.getContext('2d');
         const audio = ap.audio;
 
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
+        function resizeCanvas() {
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const audioSrc = audioContext.createMediaElementSource(audio);
@@ -144,13 +176,13 @@
         const bufferLength = analyser.frequencyBinCount;
         const dataArray = new Uint8Array(bufferLength);
 
-        const WIDTH = canvas.width;
-        const HEIGHT = canvas.height;
-        const centerX = WIDTH / 2;
-        const centerY = HEIGHT / 2;
-        const radius = 100;
-
         function draw() {
+            const WIDTH = canvas.width;
+            const HEIGHT = canvas.height;
+            const centerX = WIDTH / 2;
+            const centerY = HEIGHT / 2;
+            const radius = Math.min(WIDTH, HEIGHT) / 3;
+
             requestAnimationFrame(draw);
             analyser.getByteFrequencyData(dataArray);
 
