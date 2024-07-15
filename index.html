@@ -179,7 +179,7 @@
             // 绘制频谱条
             for (let i = 0; i < bufferLength; i++) {
                 const angle = (i / bufferLength) * 2 * Math.PI;
-                const barHeight = dataArray[i] / 2;
+                const barHeight = (dataArray[i] / 256) * radius;  // 调整频谱条长度
                 const x = centerX + Math.cos(angle) * (radius + barHeight);
                 const y = centerY + Math.sin(angle) * (radius + barHeight);
 
