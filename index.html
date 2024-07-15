@@ -51,7 +51,7 @@
         /* 媒体查询，适应手机端 */
         @media (max-width: 600px) {
             #player1 {
-                width: 100%;
+                width: 95%;
                 max-width: none;
                 margin-top: 10px;
             }
@@ -87,11 +87,11 @@
     document.addEventListener('DOMContentLoaded', () => {
         const ap = new APlayer({
             container: document.getElementById('player1'),
-            fixed: false,
+            fixed: true,
             autoplay: true,
             theme: '#FADFA3',
-            loop: 'all',
-            order: 'list',
+            loop: 'all', // 循环播放
+            order: 'list', // 列表顺序播放
             preload: 'auto',
             volume: 0.7,
             mutex: true,
@@ -149,6 +149,12 @@
                     lrc: '/music/offical.lrc'
                 },
             ]
+        });
+
+        // 设置循环播放和单曲循环
+        document.querySelector('.aplayer-button[title="循环"]').addEventListener('click', () => {
+            ap.options.loop = ap.options.loop === 'one' ? 'all' : 'one';
+            ap.setLoop(ap.options.loop);
         });
 
         const canvas = document.getElementById('canvas');
