@@ -5,7 +5,6 @@
     <title>Vi</title>
     <link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css">
     <style>
-        /* 居中容器样式 */
         body, html {
             height: 100%;
             margin: 0;
@@ -19,7 +18,8 @@
             overflow: hidden;
         }
         #player1 {
-            width: 800px; /* 设置播放器的宽度 */
+            width: 80%;
+            max-width: 800px;
             margin-top: 20px;
             z-index: 10;
         }
@@ -48,6 +48,17 @@
         #canvas {
             z-index: 2;
         }
+        /* 媒体查询，适应手机端 */
+        @media (max-width: 600px) {
+            #player1 {
+                width: 95%;
+                max-width: none;
+            }
+            .animation-container {
+                width: 200px;
+                height: 200px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -60,172 +71,175 @@
 
 <script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script>
 <script>
-    const ap = new APlayer({
-        container: document.getElementById('player1'),
-        fixed: true,
-        autoplay: true,
-        theme: '#FADFA3',
-        loop: 'all',  // 循环播放
-        order: 'list',  // 列表顺序播放
-        preload: 'auto',
-        volume: 0.7,
-        mutex: true,
-        listFolded: false,  // 展开播放列表
-        listMaxHeight: 90,
-        lrcType: 3,
-        audio: [
-            {
-                name: 'Pink Palaka',
-                artist: 'Andrew E',
-                url: '/music/PinkPalaka.m4a',
-                cover: '/music/pink.png',
-                lrc: '/music/pink.lrc'
-            },
-            {
-                name: 'Ferrari',
-                artist: 'Bebe Rexha',
-                url: '/music/ferrari.m4a',
-                cover: '/music/ferrari.png',
-                lrc: '/music/ferrari.lrc'
-            },
-            {
-                name: '霜雪千年',
-                artist: '洛天依/乐正绫',
-                url: '/music/sxqn.m4a',
-                cover: '/music/sxqn.png',
-                lrc: '/music/sxqn.lrc'
-            },
-            {
-                name: 'jar of love',
-                artist: '曲婉婷',
-                url: '/music/ajar_Of_Love.m4a',
-                cover: '/music/jar.png',
-                lrc: '/music/jaroflove.lrc'
-            },
-            {
-                name: '差不多先生',
-                artist: 'hot dog',
-                url: '/music/almostnew.m4a',
-                cover: '/music/almost.png',
-                lrc: '/music/almost.lrc'
-            },
-            {
-                name: '垃圾话',
-                artist: 'GAI',
-                url: '/music/trash_talk_GAI.m4a',
-                cover: '/music/trash.png',
-                lrc: '/music/trash.lrc'
-            },
-            {
-                name: '威远故事',
-                artist: 'GAI',
-                url: '/music/official_GAI.m4a',
-                cover: '/music/offical.png',
-                lrc: '/music/offical.lrc'
-            },
-        ]
-    });
+    document.addEventListener('DOMContentLoaded', () => {
+        const ap = new APlayer({
+            container: document.getElementById('player1'),
+            fixed: true,
+            autoplay: true,
+            theme: '#FADFA3',
+            loop: 'all',
+            order: 'list',
+            preload: 'auto',
+            volume: 0.7,
+            mutex: true,
+            listFolded: false,
+            listMaxHeight: 90,
+            lrcType: 3,
+            audio: [
+                {
+                    name: 'Pink Palaka',
+                    artist: 'Andrew E',
+                    url: '/music/PinkPalaka.m4a',
+                    cover: '/music/pink.png',
+                    lrc: '/music/pink.lrc'
+                },
+                {
+                    name: 'Ferrari',
+                    artist: 'Bebe Rexha',
+                    url: '/music/ferrari.m4a',
+                    cover: '/music/ferrari.png',
+                    lrc: '/music/ferrari.lrc'
+                },
+                {
+                    name: '霜雪千年',
+                    artist: '洛天依/乐正绫',
+                    url: '/music/sxqn.m4a',
+                    cover: '/music/sxqn.png',
+                    lrc: '/music/sxqn.lrc'
+                },
+                {
+                    name: 'jar of love',
+                    artist: '曲婉婷',
+                    url: '/music/ajar_Of_Love.m4a',
+                    cover: '/music/jar.png',
+                    lrc: '/music/jaroflove.lrc'
+                },
+                {
+                    name: '差不多先生',
+                    artist: 'hot dog',
+                    url: '/music/almostnew.m4a',
+                    cover: '/music/almost.png',
+                    lrc: '/music/almost.lrc'
+                },
+                {
+                    name: '垃圾话',
+                    artist: 'GAI',
+                    url: '/music/trash_talk_GAI.m4a',
+                    cover: '/music/trash.png',
+                    lrc: '/music/trash.lrc'
+                },
+                {
+                    name: '威远故事',
+                    artist: 'GAI',
+                    url: '/music/official_GAI.m4a',
+                    cover: '/music/offical.png',
+                    lrc: '/music/offical.lrc'
+                },
+            ]
+        });
 
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    const audio = ap.audio; // 使用 APlayer 播放器的音频元素
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const audio = ap.audio;
 
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
-
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const audioSrc = audioContext.createMediaElementSource(audio);
-    const analyser = audioContext.createAnalyser();
-
-    audioSrc.connect(analyser);
-    analyser.connect(audioContext.destination);
-    analyser.fftSize = 256;
-
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-
-    const WIDTH = canvas.width;
-    const HEIGHT = canvas.height;
-    const centerX = WIDTH / 2;
-    const centerY = HEIGHT / 2;
-    const radius = 100;
-
-    function draw() {
-        requestAnimationFrame(draw);
-        analyser.getByteFrequencyData(dataArray);
-
-        ctx.clearRect(0, 0, WIDTH, HEIGHT);
-
-        // 绘制透明的圆形外圈
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-
-        // 绘制频谱条
-        for (let i = 0; i < bufferLength; i++) {
-            const angle = (i / bufferLength) * 2 * Math.PI;
-            const barHeight = dataArray[i] / 2;
-            const x = centerX + Math.cos(angle) * (radius + barHeight);
-            const y = centerY + Math.sin(angle) * (radius + barHeight);
-
-            ctx.beginPath();
-            ctx.moveTo(centerX + Math.cos(angle) * radius, centerY + Math.sin(angle) * radius);
-            ctx.lineTo(x, y);
-            ctx.strokeStyle = `rgba(${dataArray[i]}, ${255 - dataArray[i]}, 150, 1)`;
-            ctx.stroke();
+        function resizeCanvas() {
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
         }
-    }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
-    audio.onplay = () => {
-        audioContext.resume().then(() => {
-            draw();
-        });
-    };
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const audioSrc = audioContext.createMediaElementSource(audio);
+        const analyser = audioContext.createAnalyser();
 
-    // 动态星空背景
-    const bgCanvas = document.getElementById('background-canvas');
-    const bgCtx = bgCanvas.getContext('2d');
-    bgCanvas.width = window.innerWidth;
-    bgCanvas.height = window.innerHeight;
+        audioSrc.connect(analyser);
+        analyser.connect(audioContext.destination);
+        analyser.fftSize = 256;
 
-    const stars = [];
-    for (let i = 0; i < 100; i++) {
-        stars.push({
-            x: Math.random() * bgCanvas.width,
-            y: Math.random() * bgCanvas.height,
-            radius: Math.random() * 1.5,
-            alpha: Math.random() * 1,
-            dx: Math.random() * 0.5,
-            dy: Math.random() * 0.5
-        });
-    }
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
 
-    function drawStars() {
-        bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-        bgCtx.fillStyle = '#000';
-        bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
-        bgCtx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-        bgCtx.shadowBlur = 5;
-        bgCtx.shadowColor = 'white';
+        function draw() {
+            requestAnimationFrame(draw);
+            analyser.getByteFrequencyData(dataArray);
 
-        stars.forEach((star, i) => {
-            star.x += star.dx;
-            star.y += star.dy;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = Math.min(centerX, centerY) - 20;
 
-            if (star.x > bgCanvas.width || star.x < 0) star.dx = -star.dx;
-            if (star.y > bgCanvas.height || star.y < 0) star.dy = -star.dy;
+            // 绘制透明的圆形外圈
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
 
-            bgCtx.beginPath();
-            bgCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-            bgCtx.fill();
-        });
+            // 绘制频谱条
+            for (let i = 0; i < bufferLength; i++) {
+                const angle = (i / bufferLength) * 2 * Math.PI;
+                const barHeight = dataArray[i] / 2;
+                const x = centerX + Math.cos(angle) * (radius + barHeight);
+                const y = centerY + Math.sin(angle) * (radius + barHeight);
 
-        requestAnimationFrame(drawStars);
-    }
+                ctx.beginPath();
+                ctx.moveTo(centerX + Math.cos(angle) * radius, centerY + Math.sin(angle) * radius);
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = `rgba(${dataArray[i]}, ${255 - dataArray[i]}, 150, 1)`;
+                ctx.stroke();
+            }
+        }
 
-    drawStars();
+        audio.onplay = () => {
+            audioContext.resume().then(() => {
+                draw();
+            });
+        };
+
+        // 动态星空背景
+        const bgCanvas = document.getElementById('background-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        bgCanvas.width = window.innerWidth;
+        bgCanvas.height = window.innerHeight;
+
+        const stars = [];
+        for (let i = 0; i < 100; i++) {
+            stars.push({
+                x: Math.random() * bgCanvas.width,
+                y: Math.random() * bgCanvas.height,
+                radius: Math.random() * 1.5,
+                alpha: Math.random() * 1,
+                dx: Math.random() * 0.5,
+                dy: Math.random() * 0.5
+            });
+        }
+
+        function drawStars() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            bgCtx.fillStyle = '#000';
+            bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+            bgCtx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            bgCtx.shadowBlur = 5;
+            bgCtx.shadowColor = 'white';
+
+            stars.forEach((star, i) => {
+                star.x += star.dx;
+                star.y += star.dy;
+
+                if (star.x > bgCanvas.width || star.x < 0) star.dx = -star.dx;
+                if (star.y > bgCanvas.height || star.y < 0) star.dy = -star.dy;
+
+                bgCtx.beginPath();
+                bgCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                bgCtx.fill();
+            });
+
+            requestAnimationFrame(drawStars);
+        }
+
+        drawStars();
+    });
 </script>
 
 </body>
