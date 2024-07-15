@@ -2,20 +2,12 @@ from flask import Flask, request, redirect, url_for, render_template_string, sen
 import os
 import logging
 
-app = Flask(__name__, static_url_path='/2048', static_folder='2048', template_folder='2048')
+app = Flask(__name__)
 UPLOAD_FOLDER = '/root/music/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # 设置日志
 logging.basicConfig(filename='access.log', level=logging.INFO)
 
-
-@app.route('/2048')
-def game():
-    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
-    logging.info(f'Access from {ip}')
-    with open('2048/index.html') as f:
-        return render_template_string(f.read())
-        
 @app.route('/')
 def home():
     ip = request.headers.get('X-Forwarded-For', request.remote_addr)
