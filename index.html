@@ -18,7 +18,8 @@
             overflow: hidden;
         }
         #player1 {
-            width: 800px; /* 设置播放器的宽度 */
+            width: 100%;
+            max-width: 800px;
             margin-top: 20px;
             z-index: 10;
         }
@@ -47,6 +48,30 @@
         #canvas {
             z-index: 2;
         }
+        /* 媒体查询，适应手机端 */
+        @media (max-width: 600px) {
+            #player1 {
+                width: 100%;
+                max-width: none;
+                margin-top: 10px;
+            }
+            .animation-container {
+                width: 200px;
+                height: 200px;
+            }
+            .aplayer {
+                font-size: 2rem; /* 增大字体 */
+            }
+            .aplayer-list {
+                height: auto; /* 自动调整播放列表高度 */
+            }
+            .aplayer-title, .aplayer-author {
+                font-size: 1.5rem; /* 增大标题和作者的字体 */
+            }
+            .aplayer-controller {
+                height: 60px; /* 增加控制栏高度 */
+            }
+        }
     </style>
 </head>
 <body>
@@ -62,7 +87,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const ap = new APlayer({
             container: document.getElementById('player1'),
-            fixed: true,
+            fixed: false,
             autoplay: true,
             theme: '#FADFA3',
             loop: 'all',
