@@ -18,7 +18,10 @@
             overflow: hidden;
         }
         #player1 {
-            width: 100%;
+            width: 80%;
+            max-width: 800px;
+            margin-top: 20px;
+            z-index: 10;
         }
         .animation-container {
             position: relative;
@@ -50,10 +53,23 @@
             #player1 {
                 width: 95%;
                 max-width: none;
+                margin-top: 10px;
             }
             .animation-container {
                 width: 200px;
                 height: 200px;
+            }
+            .aplayer {
+                font-size: 1.5rem; /* 增大字体 */
+            }
+            .aplayer-list {
+                height: 200px; /* 增加播放列表高度 */
+            }
+            .aplayer-title, .aplayer-author {
+                font-size: 1.2rem; /* 增大标题和作者的字体 */
+            }
+            .aplayer-controller {
+                height: 50px; /* 增加控制栏高度 */
             }
         }
     </style>
@@ -80,7 +96,7 @@
             volume: 0.7,
             mutex: true,
             listFolded: false,
-            listMaxHeight: 200, // 调整播放列表的最大高度
+            listMaxHeight: 200,
             lrcType: 3,
             audio: [
                 {
