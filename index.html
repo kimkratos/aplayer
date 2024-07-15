@@ -13,13 +13,15 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background: #1a1a1a;
+            background: #000;
             color: #fff;
             font-family: Arial, sans-serif;
+            overflow: hidden;
         }
         #player1 {
             width: 800px; /* 设置播放器的宽度 */
             margin-top: 20px;
+            z-index: 10;
         }
         .animation-container {
             position: relative;
@@ -31,6 +33,7 @@
             align-items: center;
             overflow: hidden;
             margin-top: 20px;
+            z-index: 10;
         }
         canvas {
             position: absolute;
@@ -39,10 +42,17 @@
             width: 100%;
             height: 100%;
         }
+        #background-canvas {
+            z-index: 1;
+        }
+        #canvas {
+            z-index: 2;
+        }
     </style>
 </head>
 <body>
 
+<canvas id="background-canvas"></canvas>
 <div id="player1" class="aplayer"></div>
 <div class="animation-container" id="animation-container">
     <canvas id="canvas"></canvas>
@@ -173,6 +183,49 @@
             draw();
         });
     };
+
+    // 动态星空背景
+    const bgCanvas = document.getElementById('background-canvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    bgCanvas.width = window.innerWidth;
+    bgCanvas.height = window.innerHeight;
+
+    const stars = [];
+    for (let i = 0; i < 100; i++) {
+        stars.push({
+            x: Math.random() * bgCanvas.width,
+            y: Math.random() * bgCanvas.height,
+            radius: Math.random() * 1.5,
+            alpha: Math.random() * 1,
+            dx: Math.random() * 0.5,
+            dy: Math.random() * 0.5
+        });
+    }
+
+    function drawStars() {
+        bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+        bgCtx.fillStyle = '#000';
+        bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+        bgCtx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        bgCtx.shadowBlur = 5;
+        bgCtx.shadowColor = 'white';
+
+        stars.forEach((star, i) => {
+            star.x += star.dx;
+            star.y += star.dy;
+
+            if (star.x > bgCanvas.width || star.x < 0) star.dx = -star.dx;
+            if (star.y > bgCanvas.height || star.y < 0) star.dy = -star.dy;
+
+            bgCtx.beginPath();
+            bgCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+            bgCtx.fill();
+        });
+
+        requestAnimationFrame(drawStars);
+    }
+
+    drawStars();
 </script>
 
 </body>
