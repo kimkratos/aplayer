@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>?</title>
+    <title>播放器和动感音效动画</title>
     <link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css">
     <style>
         /* 居中容器样式 */
@@ -12,15 +12,66 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
+            background: #1a1a1a;
+            color: #fff;
+            font-family: Arial, sans-serif;
         }
         #player1 {
             width: 800px; /* 设置播放器的宽度 */
+            margin-top: 20px;
+        }
+        .animation-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: pulse 1s infinite;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            }
+        }
+        .ripple {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            animation: ripple-animation 2s infinite;
+        }
+        @keyframes ripple-animation {
+            0% {
+                transform: scale(0.1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
 
 <div id="player1" class="aplayer"></div>
+<div class="animation-container" id="animation-container"></div>
 
 <script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script>
 <script>
@@ -89,6 +140,23 @@
             },
         ]
     });
+
+    const animationContainer = document.getElementById('animation-container');
+    const audio = ap.audio; // 使用 APlayer 播放器的音频元素
+
+    // 创建波纹效果
+    function createRipple() {
+        const ripple = document.createElement('div');
+        ripple.classList.add('ripple');
+        animationContainer.appendChild(ripple);
+
+        setTimeout(() => {
+            ripple.remove();
+        }, 2000);
+    }
+
+    // 定时生成波纹
+    setInterval(createRipple, 1000);
 </script>
 
 </body>
