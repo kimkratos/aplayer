@@ -47,6 +47,11 @@ def uploaded_file(filename):
 
 @app.route('/ip')
 def ip_heatmap():
+    with open('map.html') as f:
+        return render_template_string(f.read())
+
+@app.route('/gen')
+def ip_heatmap():
     with open('heatmap.html') as f:
         return render_template_string(f.read())
 
