@@ -12,7 +12,7 @@ with open('access.log', 'r') as file:
 ips = re.findall(r'Access from ([\d\.]+)', log_data)
 
 # 使用 GeoIP2 数据库进行 IP 地址到地理位置的转换
-reader = geoip2.database.Reader('/mnt/data/GeoLite2-City.mmdb')
+reader = geoip2.database.Reader('./GeoLite2-City.mmdb')
 
 locations = []
 for ip in ips:
