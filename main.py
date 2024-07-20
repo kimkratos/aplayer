@@ -51,7 +51,7 @@ def ip_heatmap():
         return render_template_string(f.read())
 
 @app.route('/gen')
-def ip_heatmap():
+def ip_genheatmap():
     with open('heatmap.html') as f:
         return render_template_string(f.read())
 
