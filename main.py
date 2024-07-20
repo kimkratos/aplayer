@@ -41,7 +41,8 @@ def uploaded_file(filename):
 
 @app.route('/ip')
 def ip_heatmap():
-    return send_from_directory('templates', 'heatmap.html')
+    with open('heatmap.html') as f:
+        return render_template_string(f.read())
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
