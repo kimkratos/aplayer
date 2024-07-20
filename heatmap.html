@@ -17,7 +17,7 @@
                     type: 'POST',
                     success: function(response) {
                         if (response.status === "success") {
-                            $('#heatmapIframe').attr('src', 'static/heatmap.html?' + new Date().getTime());
+                            $('#heatmapIframe').attr('src', 'map.html?' + new Date().getTime());
                         } else {
                             alert('Failed to generate heatmap');
                         }
