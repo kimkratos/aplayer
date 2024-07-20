@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IP Heatmap</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <button id="generateHeatmapBtn">Generate Heatmap</button>
+    <iframe id="heatmapIframe" src="static/heatmap.html" width="600" height="400"></iframe>
+
+    <script>
+        $(document).ready(function() {
+            $('#generateHeatmapBtn').click(function() {
+                $.ajax({
+                    url: '/generate_heatmap',
+                    type: 'POST',
+                    success: function(response) {
+                        if (response.status === "success") {
+                            $('#heatmapIframe').attr('src', 'static/heatmap.html?' + new Date().getTime());
+                        } else {
+                            alert('Failed to generate heatmap');
+                        }
+                    },
+                    error: function() {
+                        alert('Error occurred while generating heatmap');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
