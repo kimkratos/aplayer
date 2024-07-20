@@ -28,4 +28,4 @@ location_counts = Counter(locations)
 m = folium.Map(location=[35.8617, 104.1954], zoom_start=4)
 heat_data = [[loc[0], loc[1], count] for loc, count in location_counts.items()]
 HeatMap(heat_data).add_to(m)
-m.save('templates/heatmap.html')
+m.save('heatmap.html')
