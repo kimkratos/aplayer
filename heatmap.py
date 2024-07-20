@@ -2,6 +2,7 @@ import re
 import geoip2.database
 import folium
 from collections import Counter
+from folium.plugins import HeatMap
 
 # 读取 access.log 文件
 with open('access.log', 'r') as file:
@@ -11,7 +12,7 @@ with open('access.log', 'r') as file:
 ips = re.findall(r'Access from ([\d\.]+)', log_data)
 
 # 使用 GeoIP2 数据库进行 IP 地址到地理位置的转换
-reader = geoip2.database.Reader('./GeoLite2-City.mmdb')
+reader = geoip2.database.Reader('/mnt/data/GeoLite2-City.mmdb')
 
 locations = []
 for ip in ips:
@@ -28,4 +29,4 @@ location_counts = Counter(locations)
 m = folium.Map(location=[35.8617, 104.1954], zoom_start=4)
 heat_data = [[loc[0], loc[1], count] for loc, count in location_counts.items()]
 HeatMap(heat_data).add_to(m)
-m.save('heatmap.html')
+m.save('templates/heatmap.html')
