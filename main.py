@@ -77,7 +77,7 @@ def generate_heatmap():
     m = Map(location=[35.8617, 104.1954], zoom_start=4)
     heat_data = [[loc[0], loc[1], count] for loc, count in location_counts.items()]
     HeatMap(heat_data).add_to(m)
-    m.save('heatmap.html')
+    m.save('map.html')
 
     return jsonify({"status": "success"})
 
