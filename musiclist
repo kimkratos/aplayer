@@ -1,0 +1,63 @@
+{
+                    name: '我可以',
+                    artist: '蔡旻佑',
+                    url: '/music/wky.m4a',
+                    cover: '/music/wky.png',
+                    lrc: '/music/wky.lrc'
+                },
+                {
+                    name: 'Pink Palaka',
+                    artist: 'Andrew E',
+                    url: '/music/PinkPalaka.m4a',
+                    cover: '/music/pink.png',
+                    lrc: '/music/pink.lrc'
+                },
+                {
+                    name: '悟空',
+                    artist: '戴荃',
+                    url: '/music/wk.m4a',
+                    cover: '/music/wk.png',
+                    lrc: '/music/wk.lrc'
+                },
+                {
+                    name: 'Ferrari',
+                    artist: 'Bebe Rexha',
+                    url: '/music/ferrari.m4a',
+                    cover: '/music/ferrari.png',
+                    lrc: '/music/ferrari.lrc'
+                },
+                {
+                    name: '霜雪千年',
+                    artist: '洛天依/乐正绫',
+                    url: '/music/sxqn.m4a',
+                    cover: '/music/sxqn.png',
+                    lrc: '/music/sxqn.lrc'
+                },
+                {
+                    name: 'jar of love',
+                    artist: '曲婉婷',
+                    url: '/music/ajar_Of_Love.m4a',
+                    cover: '/music/jar.png',
+                    lrc: '/music/jaroflove.lrc'
+                },
+                {
+                    name: '差不多先生',
+                    artist: 'hot dog',
+                    url: '/music/almostnew.m4a',
+                    cover: '/music/almost.png',
+                    lrc: '/music/almost.lrc'
+                },
+                {
+                    name: '垃圾话',
+                    artist: 'GAI',
+                    url: '/music/trash_talk_GAI.m4a',
+                    cover: '/music/trash.png',
+                    lrc: '/music/trash.lrc'
+                },
+                {
+                    name: '威远故事',
+                    artist: 'GAI',
+                    url: '/music/official_GAI.m4a',
+                    cover: '/music/offical.png',
+                    lrc: '/music/offical.lrc'
+                },
