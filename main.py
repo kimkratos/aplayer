@@ -8,7 +8,7 @@ from folium import Map
 from folium.plugins import HeatMap
 
 app = Flask(__name__)
-UPLOAD_FOLDER = '/root/music/'
+UPLOAD_FOLDER = '/var/www/music/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # 设置日志
