@@ -1,12 +1,11 @@
-from flask import Flask, request, redirect, url_for, render_template_string, send_from_directory, abort
+from flask import Flask, request, redirect, url_for, render_template_string, send_from_directory
 import os
 import logging
 
 app = Flask(__name__)
 UPLOAD_FOLDER = '/root/music/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-# Set up logging
+# 设置日志
 logging.basicConfig(filename='access.log', level=logging.INFO)
 
 @app.route('/')
@@ -39,16 +38,6 @@ def upload_file():
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
-@app.route('/download')
-def download_file():
-    filepath = '/var/www/music/test.exe'
-    if os.path.exists(filepath):
-        directory = os.path.dirname(filepath)
-        filename = os.path.basename(filepath)
-        return send_from_directory(directory, filename, as_attachment=True)
-    else:
-        abort(404, description="File not found")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
